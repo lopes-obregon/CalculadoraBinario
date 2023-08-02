@@ -6,26 +6,9 @@ class Operação:
         vai_um = 0
         aux = 0
         for i in range(len(parcela1) - 1, -1, -1):
-            if(parcela1[i] + parcela2[i] > 1):
-                aux = parcela1[i] + parcela2[i] + vai_um
-                if(aux== 3):
-                    aux = 1
-                    vai_um = 1
-                elif(aux == 2):
-                    aux = 0
-                    vai_um = 1
-
-                resultado.append(aux)
-                
-            else:
-                aux = parcela1[i] + parcela2[i] + vai_um
-               
-                if aux > 1:
-                    aux = 0
-                    vai_um = 1
-                else:
-                    vai_um = 0
-                resultado.append(aux)
+            aux = parcela1[i] + parcela2[i] + vai_um
+            resultado.append(aux %2) #resultado do bit é o resultado da divisão por 2
+            vai_um = aux //2 #quociente da divisão por 2
 
                 
         #reverter para forma normal

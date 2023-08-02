@@ -89,21 +89,11 @@ class Operação:
 # faz a negação dos bits inverte caso 1 vira 0 e caso  0 vira 1
     def complemento1(self, valor):
         #invertemos os bits do determinado valor ou array de bits
-        for i in range(0, len(valor)):
-            if(valor[i] == 0):
-                valor[i] = 1
-            else:
-                valor[i] = 0
+        valor = [1 if bit == 0 else 0 for bit in valor]
     #soma 1 no ultimo bit
     def complemento2(self, valor):
-       soma_1 = []
-       for i in range(len(valor)):
-            # se i + 1 > tamanho de valor, então estamos na última posição
-            if (i + 1 > len(valor) - 1):
-                soma_1.append(1)
-            else:
-                soma_1.append(0)
-        
+       soma_1 = [0] * len(valor) - 1
+       soma_1.append(1)
        aux = self.adição(valor, parcela2=soma_1)
        #corrigir valor 
        self.copiaLista(aux, valor)

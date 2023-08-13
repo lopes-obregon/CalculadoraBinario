@@ -57,6 +57,9 @@ class Controle:
             resultado  = self.operação.multiplicação(multiplicando= multiplicando, multiplicador=multiplicador, quantidade_bits=quantidade_bits)
             self.view.printMemória("Resultado Multiplicação" + str(resultado))
         elif(self.memória.operação_escolhida == "/"):
-            self.operação.divisão()
+            dividendo = self.memória.operando1_bin
+            divisor = self.memória.operando2_bin
+            
+            self.operação.divisão(dividendo=dividendo, divisor=divisor)
         else:
             self.view.printMemória("Operação inválida!")

@@ -13,6 +13,6 @@ if __name__ == "__main__":
     #converte para binário
     controle.conversorBin()
     #imprime para binário
-    controle.printMemóriaBin()
+   # controle.printMemóriaBin()
     #vai para operação escolhida
     controle.operaçãoEscolhida()

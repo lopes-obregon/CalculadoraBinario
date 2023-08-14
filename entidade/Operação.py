@@ -69,14 +69,22 @@ class Operação:
                     quantidade_bits = quantidade_bits - 1
             return q
     def divisão(self,divisor=list, dividendo=list):
-        #resto
+        if(dividendo[0] == 1):
+            dividendo =[1] * len(dividendo) + dividendo
+        else:
+            dividendo =[0] * len(dividendo) + dividendo
         m = divisor.copy()         
         if(divisor[0] == 1):
             m = self.complemento1(m)
             m = self.complemento2(m)
+        #resto
+        if(dividendo[0] == 1):
+            a = dividendo.copy()
+        else:
+            a = [0]* len(dividendo)
         #quociente
-        a = [0] * len(dividendo)#a inicia um vetor com 0 do tamanho dos bits    
         q = dividendo.copy()
+      
         contador = len(q)
         while(contador > 0):
             self.deslocamentoEsquerdo(valor=a, valor2=q)
@@ -84,22 +92,24 @@ class Operação:
             #opção para não dar erro nos métodos
            # m e a tem o mesmo sinal então  a = a-m caso contrario a = a+m
             if(m[0] == a[0]):
-                a = self.subtração(minuendo=a, subtraendo=m.copy())
-            else:
-                a = self.adição(parcela1=a, parcela2=m)
+                
+                a = self.subtração(minuendo=a, subtraendo=[1]* len(m) + m.copy() if m[0] == 1 else [0]* len(m) + m.copy())
+            else:   
+                a = self.adição(parcela1=a, parcela2=[1]* len(m) + m.copy() if m[0] == 1 else [0]* len(m) + m.copy())
            
             if(a[0] == 1):
                
                 q[-1] = 0
                 #opção para não dar erro nos métodos
-               
-                a = self.adição(parcela1=a, parcela2=m)#restaura valor de a
+                a = self.adição(parcela1=a, parcela2=[1]* len(m) + m.copy() if m[0] == 1 else [0]* len(m) + m.copy())#restaura valor de a
             else:
                 q[-1] = 1
             contador = contador - 1
         #caso dividendo e divisor com sinal diferentes 
         #o quociente é o complemento a dois de q 
-        if(dividendo[0] != divisor[0]):
+        q = q[len(divisor):]
+        a = a[len(divisor):]
+        if(divisor[0] == 1):
             q = self.complemento1(q)
             q = self.complemento2(q)
         return (q, a)

@@ -9,7 +9,7 @@ if __name__ == "__main__":
     #salva na memória
     controle.salveMemória()
     #imprime os dados que estão na memória
-    controle.printMemória()
+   # controle.printMemória()
     #converte para binário
     controle.conversorBin()
     #imprime para binário

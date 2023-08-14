@@ -32,8 +32,10 @@ class Controle:
     def printMemóriaBin(self):
         lista1 = self.memória.operando1_bin
         lista2 = self.memória.operando2_bin
-        self.view.printMemória("Operando em binário:"+str(lista1))
-        self.view.printMemória("Operando em binário:"+str(lista2))
+        operando1 = self.memória.operando1
+        operando2 = self.memória.operando2
+        self.view.printMemória("Operando em binário:"+str(lista1) + ":" +  str(operando1))
+        self.view.printMemória("Operando em binário:"+str(lista2) + ":" +  str(operando2))
     #chamada do método de converter da classe conversor
     def conversorBin(self):
         
@@ -44,22 +46,25 @@ class Controle:
            parcela1 = self.memória.operando1_bin
            parcela2 = self.memória.operando2_bin
            resultado = self.operação.adição(parcela1=parcela1, parcela2=parcela2)
-           self.view.printMemória("Resultado soma:"+str(resultado))
+           self.view.printMemória("Resultado soma:"+str(resultado)+ ":" + str(self.conversor.converteBinParaDec(resultado)))
         elif(self.memória.operação_escolhida == "-"):
             bin1 = self.memória.operando1_bin
             bin2 = self.memória.operando2_bin
             resultado = self.operação.subtração(minuendo=bin1, subtraendo=bin2)
-            self.view.printMemória("Resultado Subtração:"+str(resultado))
+            self.view.printMemória("Resultado Subtração:"+str(resultado)+ ":" + str(self.conversor.converteBinParaDec(resultado)))
         elif(self.memória.operação_escolhida == "*"):
             multiplicando=self.memória.operando1_bin
             multiplicador=self.memória.operando2_bin
             quantidade_bits=self.memória.representação_do_inteiro
             resultado  = self.operação.multiplicação(multiplicando= multiplicando, multiplicador=multiplicador, quantidade_bits=quantidade_bits)
-            self.view.printMemória("Resultado Multiplicação" + str(resultado))
+            self.view.printMemória("Resultado Multiplicação:" + str(resultado)+ ":" + str(self.conversor.converteBinParaDec(resultado)))
         elif(self.memória.operação_escolhida == "/"):
             dividendo = self.memória.operando1_bin
             divisor = self.memória.operando2_bin
             
-            self.operação.divisão(dividendo=dividendo, divisor=divisor)
+            (quociente, resto) =  self.operação.divisão(dividendo=dividendo, divisor=divisor)
+            self.view.printMemória("Resultado Divisão")
+            self.view.printMemória("Quociente:" + str(quociente)+ ":" + str(self.conversor.converteBinParaDec(quociente)))
+            self.view.printMemória("Resto:" + str(resto)+ ":" + str(self.conversor.converteBinParaDec(resto)))
         else:
             self.view.printMemória("Operação inválida!")

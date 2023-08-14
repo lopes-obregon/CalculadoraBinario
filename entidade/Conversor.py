@@ -55,5 +55,32 @@ class Conversor:
         resto.reverse()
         return resto
    
+    def converteBinParaDec(self, binário=list):
+        sinal = 1 if binário[0] == 0 else -1# guarda o sinal do bit
+        expoente = len(binário) - 1
+        valor = 0
+        #sinal negativo
+        if(sinal == -1):
+            binário = self.complemento1(binário)
+            binário = self.complemento2(binário)
+        for bit in binário:
+            valor = valor +((2**expoente)*bit)
+            expoente = expoente - 1
+        valor = valor * sinal
+        return valor
+    def complemento1(self, binário=list):
+        valor = [1 if bit == 0 else 0 for bit in binário]  
+        return valor
+    def complemento2(self, binário=list):
+        resultado = [0] * (len(binário))
+        parcela = [0] * (len(binário) - 1)
+        parcela.append(1)
+        vai_um = 0
+        aux = 0
+        for i in range(len(binário) - 1, -1, -1):
+            aux = binário[i] + parcela[i] + vai_um
+            resultado[i] = aux %2 #resultado do bit é o resultado da divisão por 2
+            vai_um = aux //2 #quociente da divisão por 2
+
         
-        
+        return resultado

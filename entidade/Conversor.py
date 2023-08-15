@@ -2,7 +2,7 @@ class Conversor:
     def __init__(self) -> None:
         pass
 
-    def converteBin(self, operando, tamanho_sifra):
+    def converteBin(self, operando=int, tamanho_sifra=int):
         #guarda o resto da divisão
         resto = []
         tem_negativo = False
@@ -15,17 +15,13 @@ class Conversor:
         while resultado > 1:
             resto.append(resultado%2)
             resultado = int(resultado/2)
-            #print("Aqui")
-            #print(resultado)
+           
         #adiciona o resultado final da divisão
         resto.append(resultado)
         #preenche com os bits faltantes
        
         while len(resto) <= tamanho_sifra - 1:
             resto.append(0)
-        
-  
-        #print(resto)
         #verifica se um dos operandos é negativo
         if(tem_negativo):
             #xor caso for inverte os bits
@@ -54,7 +50,7 @@ class Conversor:
      
         resto.reverse()
         return resto
-   
+   #método que converte de binário para decimal
     def converteBinParaDec(self, binário=list):
         sinal = 1 if binário[0] == 0 else -1# guarda o sinal do bit
         expoente = len(binário) - 1
@@ -68,9 +64,11 @@ class Conversor:
             expoente = expoente - 1
         valor = valor * sinal
         return valor
+    #método que retorna complemento 1
     def complemento1(self, binário=list):
         valor = [1 if bit == 0 else 0 for bit in binário]  
         return valor
+    #método que retorna complemento 2
     def complemento2(self, binário=list):
         resultado = [0] * (len(binário))
         parcela = [0] * (len(binário) - 1)

@@ -1,6 +1,7 @@
 class Operação:
     def __init__(self) -> None:
         pass
+    #adição por binário
     def adição(self, parcela1, parcela2):
         resultado = [0] * (len(parcela1))
         vai_um = 0
@@ -12,6 +13,7 @@ class Operação:
 
         
         return resultado
+   #subtração por binário
     def subtração(self, minuendo, subtraendo):
         resultado = []
         #dois numeros positivos
@@ -37,6 +39,7 @@ class Operação:
             subtraendo = self.complemento2(subtraendo)
             resultado = self.adição(parcela1=minuendo, parcela2=subtraendo)
         return resultado
+    #multiplicação por booth
     def multiplicação(self, multiplicando, multiplicador, quantidade_bits):
         #esperado que já passa como reverso
         a = [0] * quantidade_bits
@@ -68,23 +71,28 @@ class Operação:
                     q1 = self.deslocamento(a=a, q=q, q1=q1)
                     quantidade_bits = quantidade_bits - 1
             return q
+    #divisão 
     def divisão(self,divisor=list, dividendo=list):
+        #vericamos o dividendo(negativo ou não) extendemos 2n 
         if(dividendo[0] == 1):
             dividendo =[1] * len(dividendo) + dividendo
         else:
             dividendo =[0] * len(dividendo) + dividendo
         m = divisor.copy()         
+        #caso divisor negativo demos fazer o complemento novamente
         if(divisor[0] == 1):
             m = self.complemento1(m)
             m = self.complemento2(m)
-        #resto
+        #caso dividendo negativo no registrador a colocamos o dividendo
+        #caso contrario registrador a recebe zero
+        #resto 
         if(dividendo[0] == 1):
             a = dividendo.copy()
         else:
             a = [0]* len(dividendo)
         #quociente
         q = dividendo.copy()
-      
+        #contador
         contador = len(q)
         while(contador > 0):
             self.deslocamentoEsquerdo(valor=a, valor2=q)
@@ -92,23 +100,25 @@ class Operação:
             #opção para não dar erro nos métodos
            # m e a tem o mesmo sinal então  a = a-m caso contrario a = a+m
             if(m[0] == a[0]):
-                
+                #passamos m extendido para não dar erro nas operações
                 a = self.subtração(minuendo=a, subtraendo=[1]* len(m) + m.copy() if m[0] == 1 else [0]* len(m) + m.copy())
-            else:   
+            else:   #passamos m extendido para não dar erro nas operações
                 a = self.adição(parcela1=a, parcela2=[1]* len(m) + m.copy() if m[0] == 1 else [0]* len(m) + m.copy())
            
             if(a[0] == 1):
                
                 q[-1] = 0
-                #opção para não dar erro nos métodos
+                #passamos m extendido para não dar erro nas operações
                 a = self.adição(parcela1=a, parcela2=[1]* len(m) + m.copy() if m[0] == 1 else [0]* len(m) + m.copy())#restaura valor de a
             else:
                 q[-1] = 1
             contador = contador - 1
-        #caso dividendo e divisor com sinal diferentes 
+       
         #o quociente é o complemento a dois de q 
+        #reduzimos os bit para ficar com os bits correspondentes
         q = q[len(divisor):]
         a = a[len(divisor):]
+        #caso divisor for negativo devemos fazer complemento de dois do quociente
         if(divisor[0] == 1):
             q = self.complemento1(q)
             q = self.complemento2(q)
